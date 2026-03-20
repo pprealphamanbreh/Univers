@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=yes">
+    <title>Tiger X · RGB(52, 171, 47) + Hubs</title>
+    <!-- Google Fonts: Inter, Fira Code -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-black: #000000;
+            --green-exact: rgb(52, 171, 47);
+            --green-exact-dark: rgb(38, 128, 35);
+            --green-exact-darker: #0f2a0f;
+            --green-exact-dim: rgba(52, 171, 47, 0.15);
+            --card-bg: #0c120c;
+            --border-green: #1e4a1e;
+            --radius-card: 1.2rem;
+            --radius-btn: 0.9rem;
+            --shadow-green: 0 12px 30px -8px rgba(52, 171, 47, 0.4);
+            --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+            --font-mono: 'Fira Code', monospace;
+            
+            /* Card specific – only exact green and dark green variants */
+            --card-badge-bg: rgb(52, 171, 47);      /* exact green background */
+            --card-badge-text: #0a2a0a;             /* very dark green/black for contrast */
+            --card-by-color: rgb(52, 171, 47);      /* exact green for author */
+            --card-border: rgb(52, 171, 47);        /* exact green border */
+            --card-border-hover: rgb(52, 171, 47);
+            --card-text-muted: rgb(52, 171, 47);    /* exact green for any text */
+            --card-title: rgb(52, 171, 47);          /* NOW GREEN instead of white */
+            --card-bg-color: #0f1a0f;                /* dark green background */
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-black);
+            color: var(--green-exact);
+            line-height: 1.5;
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.2rem;
+        }
+
+        .hero-gradient {
+            background: radial-gradient(circle at 30% 30%, #1a3a1a, #000000 80%);
+        }
+
+        .bg-dark-card { background-color: var(--card-bg); }
+
+        p, h1, h2, h3, h4, span, div, li, a, button {
+            color: inherit;
+        }
+
+        i, .fas, .far, .fab {
+            color: var(--green-exact);
+        }
+
+        .btn-primary {
+            background: var(--green-exact);
+            color: #0a2a0a;
+            font-weight: 800;
+            padding: 0.75rem 2rem;
+            border-radius: var(--radius-btn);
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            font-size: 1rem;
+            text-decoration: none;
+            border: 1px solid var(--green-exact-dark);
+        }
+        .btn-primary i { color: #0a2a0a; }
+        .btn-primary:hover {
+            background: var(--green-exact-dark);
+            box-shadow: var(--shadow-green);
+            transform: scale(1.02);
+            color: black;
+        }
+
+        .btn-buy {
+            background: var(--green-exact);
+            color: #0a2a0a;
+            font-weight: 800;
+            padding: 0.6rem 2rem;
+            border-radius: var(--radius-btn);
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            font-size: 1rem;
+            text-decoration: none;
+            border: 1px solid var(--green-exact-dark);
+            margin-top: 0.8rem;
+        }
+        .btn-buy i { color: #0a2a0a; }
+        .btn-buy:hover {
+            background: var(--green-exact-dark);
+            box-shadow: var(--shadow-green);
+            transform: scale(1.02);
+            color: black;
+        }
+
+        /* Social Circles */
+        .social-section { margin-top: 2rem; text-align: center; }
+        .social-circles {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .social-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            border: 2px solid var(--green-exact);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--green-exact);
+            font-size: 1.8rem;
+        }
+        .social-circle:hover {
+            background: var(--green-exact);
+            color: black;
+            transform: scale(1.1);
+            box-shadow: var(--shadow-green);
+        }
+
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid #1b4c1b;
+            z-index: 50;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.7rem 1.2rem;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .logo-image {
+            width: 44px;
+            height: 44px;
+            border-radius: 999px;
+            object-fit: cover;
+        }
+
+        .logo-text h1 {
+            font-size: 1.3rem;
+            font-weight: 800;
+            background: linear-gradient(to right, var(--green-exact), #8bc34a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.2;
+        }
+        .logo-text p {
+            font-size: 0.65rem;
+            color: var(--green-exact);
+            opacity: 0.9;
+        }
+
+        .right-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .dropdown-btn-container { position: relative; }
+        .dropdown-trigger {
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            transition: background 0.2s;
+            color: var(--green-exact);
+        }
+        .dropdown-trigger:hover { background: #1f3a1f; }
+        .dropdown-trigger svg {
+            width: 26px;
+            height: 26px;
+            stroke: var(--green-exact);
+            stroke-width: 2;
+            fill: none;
+        }
+        .dropdown-trigger:hover svg { stroke: #a5d6a5; }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 48px;
+            right: 0;
+            background: #0a1a0a;
+            border-radius: 1rem;
+            box-shadow: 0 12px 30px -8px rgba(52, 171, 47, 0.5);
+            padding: 0.75rem 0;
+            min-width: 160px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-6px);
+            transition: all 0.2s ease;
+            border: 1px solid #1f541f;
+            z-index: 100;
+        }
+        .dropdown-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .dropdown-menu a {
+            display: block;
+            padding: 0.75rem 1.5rem;
+            color: var(--green-exact);
+            text-decoration: none;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+        .dropdown-menu a:hover { background: #1e3a1e; color: #8bc34a; }
+
+        .mobile-menu-btn { display: none; background: none; border: none; font-size: 1.8rem; color: var(--green-exact); }
+
+        main { margin-top: 5rem; }
+
+        .support-section {
+            margin-top: 3rem;
+            padding: 2rem;
+            border: 1px solid var(--border-green);
+            border-radius: var(--radius-card);
+            background: var(--card-bg);
+            text-align: center;
+        }
+
+        .support-title { font-size: 2rem; font-weight: 700; color: var(--green-exact); margin-bottom: 0.5rem; }
+        .support-subtext { font-size: 1rem; color: var(--green-exact); opacity: 0.8; margin-bottom: 1rem; }
+
+        footer {
+            background-color: #030b03;
+            color: var(--green-exact);
+            padding: 3rem 0 2rem;
+            border-top: 1px solid #1f4d1f;
+        }
+
+        .footer-logo-image { width: 38px; height: 38px; border-radius: 999px; object-fit: cover; }
+
+        hr { border: none; border-top: 1px solid #1f541f; margin: 2rem 0; }
+
+        .scroll-down-btn {
+            background: transparent;
+            border: 2px solid var(--green-exact);
+            color: var(--green-exact);
+            padding: 0.75rem 2.2rem;
+            border-radius: 3rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            transition: 0.2s;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+        .scroll-down-btn i { color: var(--green-exact); font-size: 1.2rem; }
+        .scroll-down-btn:hover {
+            background: var(--green-exact);
+            color: black;
+            border-color: var(--green-exact);
+        }
+        .scroll-down-btn:hover i { color: black; }
+
+        /* ---------- CARD GRID – THREE HUBS, NOW ALL TEXT GREEN (no white) ---------- */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+            margin-bottom: 2rem;
+        }
+        @media (max-width: 900px) {
+            .card-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 580px) {
+            .card-grid { grid-template-columns: 1fr; }
+        }
+
+        .hub-card {
+            background-color: var(--card-bg-color);
+            border: 1px solid var(--card-border);
+            border-radius: 1rem;
+            overflow: hidden;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 16px rgba(0, 40, 0, 0.8);
+            height: 100%;
+            text-decoration: none;
+            color: inherit;
+        }
+        .hub-card:hover {
+            border-color: var(--card-border-hover);
+            box-shadow: 0 0 0 2px var(--green-exact-dim), 0 4px 16px rgba(52, 171, 47, 0.3);
+            transform: translateY(-4px);
+        }
+        .card-image {
+            position: relative;
+            aspect-ratio: 16/9;
+            overflow: hidden;
+            background: #1a2a1a;
+        }
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        .hub-card:hover .card-image img { transform: scale(1.05); }
+
+        /* badge – exact green background, dark green/black text */
+        .hub-badge {
+            background-color: var(--card-badge-bg) !important;
+            color: var(--card-badge-text) !important;
+            font-family: var(--font-sans);
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            font-size: 0.65rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            text-transform: uppercase;
+            border: none;
+            display: inline-block;
+        }
+
+        .card-content {
+            padding: 0.75rem 0.75rem 1rem 0.75rem;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+        .card-title {
+            color: var(--card-title) !important;  /* NOW GREEN (rgb 52,171,47) */
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+            line-height: 1.3;
+        }
+        .card-author {
+            color: var(--green-exact) !important;
+            font-size: 0.6875rem;
+        }
+        .card-author span {
+            color: var(--green-exact) !important;
+            font-weight: 600;
+        }
+        /* no description as requested */
+        .absolute { position: absolute; }
+        .top-2 { top: 0.5rem; }
+        .left-2 { left: 0.5rem; }
+    </style>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="header-container">
+        <div class="logo-area">
+            <img src="https://raw.githubusercontent.com/NIcoGabrielRealYtr/-/refs/heads/main/Picsart_25-01-20_15-47-05-044.jpg" alt="Tiger X Logo" class="logo-image">
+            <div class="logo-text">
+                <h1>Tiger X</h1>
+                <p>Universal Script Hub</p>
+            </div>
+        </div>
+        <div class="right-actions">
+            <div class="dropdown-btn-container" id="dropdownContainer">
+                <button class="dropdown-trigger" id="dropdownToggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="4" x2="20" y1="12" y2="12"></line>
+                        <line x1="4" x2="20" y1="6" y2="6"></line>
+                        <line x1="4" x2="20" y1="18" y2="18"></line>
+                    </svg>
+                </button>
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <a href="https://tigerxhub.netlify.app" target="_blank">Home</a>
+                    <a href="https://tigerxhubuniversal.netlify.app" target="_blank">Universal</a>
+                    <a href="https://tigerxhubgames.netlify.app" target="_blank">Games</a>
+                </div>
+            </div>
+            <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+        </div>
+    </div>
+</header>
+
+<main>
+    <section class="hero-gradient" style="padding: 4rem 0 4rem 0;">
+        <div class="container">
+            <div style="max-width: 850px; margin: 0 auto; text-align: center;">
+                <span style="display: inline-block; background: #1d3b1d; color: var(--green-exact); padding: 0.3rem 1.2rem; border-radius: 999px; font-weight: 600; margin-bottom: 1.5rem;">
+                    <i class="fas fa-leaf"></i> Universal: 350+ Scripts
+                </span>
+                <h1 style="font-size: clamp(2.2rem, 8vw, 3.8rem); font-weight: 800; line-height: 1.2; margin-bottom: 1.2rem; color: var(--green-exact);">
+                    The Ultimate Roblox Script Hub
+                </h1>
+                <p style="font-size: 1.2rem; color: var(--green-exact); opacity: 0.9; max-width: 650px; margin: 0 auto 2rem;">
+                    Access hundreds of premium scripts across your favorite Roblox games. Execute with confidence.
+                </p>
+                <button class="scroll-down-btn" onclick="document.getElementById('hubs-section').scrollIntoView({behavior:'smooth'})">
+                    <i class="fas fa-arrow-down"></i> Scroll down
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Three Tiger X Hub Cards - ALL TEXT IS NOW GREEN (titles + author) -->
+    <section style="padding: 2rem 0 4rem 0; background-color: #020902;" id="hubs-section">
+        <div class="container">
+            <div class="card-grid">
+                <!-- Tiger X Hub V4.5 -->
+                <a href="https://pastefy.app/PAPK7kLp" target="_blank" class="hub-card">
+                    <div class="card-image">
+                        <img src="https://raw.githubusercontent.com/NIcoGabrielRealYtr/Image/refs/heads/main/sddefault.jpg" alt="Tiger X Hub V4.5">
+                        <div class="absolute top-2 left-2">
+                            <span class="hub-badge">Working</span>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title">Tiger X Hub V4.5</span>
+                        <span class="card-author">by <span>BananaBalintYT</span></span>
+                    </div>
+                </a>
+
+                <!-- Tiger X Hub V4 -->
+                <a href="https://pastefy.app/vKfIyDS6" target="_blank" class="hub-card">
+                    <div class="card-image">
+                        <img src="https://raw.githubusercontent.com/NIcoGabrielRealYtr/Image/refs/heads/main/sddefault%20(1).jpg" alt="Tiger X Hub V4">
+                        <div class="absolute top-2 left-2">
+                            <span class="hub-badge">Working</span>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title">Tiger X Hub V4</span>
+                        <span class="card-author">by <span>BananaBalintYT</span></span>
+                    </div>
+                </a>
+
+                <!-- Tiger X Hub V3.5 -->
+                <a href="https://pastebin.com/raw/Un9SWBHw" target="_blank" class="hub-card">
+                    <div class="card-image">
+                        <img src="https://raw.githubusercontent.com/NIcoGabrielRealYtr/Image/refs/heads/main/sddefault%20(2).jpg" alt="Tiger X Hub V3.5">
+                        <div class="absolute top-2 left-2">
+                            <span class="hub-badge">Working</span>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title">Tiger X Hub V3.5</span>
+                        <span class="card-author">by <span>BananaBalintYT</span></span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Support + Social -->
+    <section style="padding: 2rem 0 4rem 0; background: #010401;">
+        <div class="container">
+            <div class="support-section">
+                <h3 class="support-title">Support Us</h3>
+                <p class="support-subtext">buy roblox shirt to support tiger x work</p>
+                <button class="btn-buy" onclick="copyAndOpen('roblox')">
+                    <i class="fas fa-shopping-cart"></i> BUY
+                </button>
+            </div>
+
+            <div class="social-section">
+                <div class="social-circles">
+                    <div class="social-circle" onclick="copyAndOpen('youtube')"><i class="fab fa-youtube"></i></div>
+                    <div class="social-circle" onclick="copyAndOpen('discord')"><i class="fab fa-discord"></i></div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- FOOTER: Removed "ultimate roblox scripthub trusted by thousands", quick links, community, legal. Only minimal brand and copyright left. -->
+<footer>
+    <div class="container">
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+            <div style="display: flex; align-items: center; gap: 0.7rem;">
+                <img src="https://raw.githubusercontent.com/NIcoGabrielRealYtr/-/refs/heads/main/Picsart_25-01-20_15-47-05-044.jpg" alt="Tiger X Footer Logo" class="footer-logo-image">
+                <span style="font-weight: 700; font-size: 1.2rem; color: var(--green-exact);">Tiger X</span>
+            </div>
+            <span style="color: var(--green-exact); opacity: 0.8;">© 2026 Tiger X. All rights reserved.</span>
+        </div>
+    </div>
+</footer>
+
+<script>
+    const toggleBtn = document.getElementById('dropdownToggle');
+    const menu = document.getElementById('dropdownMenu');
+
+    toggleBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        menu.classList.toggle('show');
+    });
+
+    document.addEventListener('click', function(event) {
+        if (!toggleBtn.contains(event.target) && !menu.contains(event.target)) {
+            menu.classList.remove('show');
+        }
+    });
+
+    function copyAndOpen(type) {
+        let link = "";
+        if (type === 'roblox') {
+            link = "https://www.roblox.com/catalog/12349077059/Gaming-Shirt";
+        } else if (type === 'discord') {
+            link = "https://discord.gg/AGfKty2jsq";
+        } else if (type === 'youtube') {
+            link = "https://m.youtube.com/@BananaBalintYT";
+        }
+        navigator.clipboard.writeText(link).then(() => {
+            window.open(link, '_blank');
+        }).catch(() => {
+            prompt("Copy this link manually:", link);
+            window.open(link, '_blank');
+        });
+    }
+</script>
+</body>
+</html>
